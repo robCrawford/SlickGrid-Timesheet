@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Downloadify  </title>
+<!-- https://github.com/dcneiner/Downloadify -->
+<script type="text/javascript" src="js/swfobject.js"></script>
+<script type="text/javascript" src="js/downloadify.min.js"></script>
+<script type="text/javascript">
+
+data = [{who:"Rob",time:"9:30",client:"Taggstar",totalTime:120},{who:"Antony",time:"9:50",client:"Gapdaemon",totalTime:200}];
+
+function initDownloadify(){
+	Downloadify.create('downloadify',{
+		filename: "timesheet_"+new Date().getTime().toString()+".csv",
+		data: function(){return getCSV()},
+		onComplete: function(){},
+		onCancel: function(){},
+		onError: function(){ alert('No data!'); },
+		swf: 'media/downloadify.swf',
+		downloadImage: 'images/download.png',
+		width: 100,
+		height: 30,
+		transparent: true,
+		append: false
+	});
+}
+
+function getCSV(){
+	var csv = "";
+	//Compile csv string
+	for(var i=0;i<data.length;i++){
+		var row = data[i];
+		for(var p in row)csv += data[i][p] + ",";
+		csv = csv.substring(0,csv.length-1)+"\r"; //Remove last comma
+	}
+	return csv.substring(0,csv.length-2); //Remove last \r
+}
+
+window.onload = function(){
+	initDownloadify(); //Init downloadify
+}
+</script>
+
+</head>
+<body>
+
+<p id="downloadify">
+	Requires Flash 10!
+</p>
+
+
+</body>
+</html>

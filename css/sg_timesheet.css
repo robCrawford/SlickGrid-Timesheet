@@ -1,0 +1,117 @@
+.clearFloats{
+	clear: both;
+	font-size: 0;
+	height: 0;
+	overflow: hidden;
+}
+.center{
+	text-align: center;
+}
+.pseudo-button { /* Copied from slick.grid.css */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: #ddd;
+    border: 1px solid #666;
+    border-color: #888 #666 #666 #888;
+    display: inline-block;
+    color: #000;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px 8px 4px;
+    text-decoration: none;
+	cursor: pointer;
+}
+.checkBoxWrapper{
+	float: left;
+	font-size: 9px;
+	color: #666;
+	cursor: pointer;
+}
+.checkBox{
+	position: relative;
+	top: 2px;
+	margin-left: 8px;
+}
+.slick-row div{ /* Text unselectable */
+	-webkit-user-select: none; 
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+.slick-row div.editable{ /* Text selectable when editing */
+	-webkit-user-select: auto; 
+	-khtml-user-select: auto;
+	-moz-user-select: auto;
+	user-select: auto;
+}
+#toolbar{
+	padding-bottom: 8px;
+	text-align: center;
+}
+#toolbar_lhs{
+	position: relative;
+	float: left;
+	z-index: 2;
+}
+#toolbar_mid{
+	position: absolute;
+	right: 50%;
+	z-index: 1;
+}
+#toolbar_mid .els{
+	position: relative;
+	left: 50%;
+	height: 23px;
+	overflow: hidden;
+}
+#toolbar_rhs{
+	position: relative;
+	float: right;
+	z-index: 2;
+}
+#logOutBtn{
+	float: left;
+	line-height: 13px;
+	margin-right: 10px;
+	background: #000 !important;
+	border-color: #222 !important;
+	color: #fff !important;
+}
+#exportBtn{
+	float: left;
+	margin-right: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	cursor: default;
+}
+#downloadify{ /* swf wrapper inside #exportBtn */
+	width: 45px;
+	height: 13px;
+	overflow: hidden;
+}
+#undoBtn{
+	float: left;
+	line-height: 13px;
+	margin-right: 10px;
+}
+#numRowsSelect{
+	float: left;
+	margin: 1px 1px 0 0;
+	border: 1px solid #ccc;
+	padding: 2px;
+}
+#addRowBtn{
+	float: right;
+	line-height: 13px;
+	margin-right: 10px;
+}
+#saveBtn{
+	float: right;
+	line-height: 13px;
+	width: 120px;
+	text-align: center;
+	background: #000 !important;
+	color: #fff !important;
+	border-color: #222 !important;
+	font-weight: bold !important;
+}

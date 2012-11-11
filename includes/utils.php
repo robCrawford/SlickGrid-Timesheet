@@ -1,14 +1,9 @@
 <?php
-//Mysql escape strings
-function escapeStr($str){
-	$mysqli = $GLOBALS['mysqli'];
-	$str = $mysqli->real_escape_string(trim($str));
-	return $str;
-}
-
-//Show errors in JS console (use with echo or die)
-function jsConsole($str){
-	return "if(window.console)console.log('".$str."');";
+//Reverse magic quotes
+if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() === 1){
+  $_POST = array_map( 'stripslashes', $_POST );
+  $_GET = array_map( 'stripslashes', $_GET );
+  $_COOKIE = array_map( 'stripslashes', $_COOKIE );
 }
 
 //Get current page URL
@@ -37,25 +32,6 @@ function curl_get($url){
 	curl_close($ch);
 	if($httpCode==200)return $data;
 	else return false;
-}
-
-//Trim to word
-function trimToLastWord($str, $n){ 
-   $len = strlen($str); 
-   if($len > $n){ 
-       preg_match('/(.{' . $n . '}.*?)\b/', $str, $matches); 
-       return rtrim($matches[1]) . "..."; 
-   } 
-   else return $str;
-}
-
-//Trim to character
-function trimToChar($str, $n){ 
-   $len = strlen($str); 
-   if($len > $n){ 
-       return substr($str, 0, $n-1) . "&hellip;"; 
-   } 
-   else return $str;
 }
 
 /**********************************************

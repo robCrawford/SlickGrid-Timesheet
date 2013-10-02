@@ -24,4 +24,4 @@ Browse to index.php and log in using the default credentials:
 *If unsure please follow the comments in* `/_mysql`.
 
 ###Demo
-[Demo here](http://robc.eu5.org/demos/timesheet/) - feel free to add/edit/delete.
+[Demo here (static)](http://gdriv.es/timesheet) - *note that login and save are disabled.*

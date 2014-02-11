@@ -24,4 +24,4 @@ Browse to index.php and log in using the default credentials:
 *If unsure please follow the comments in* `/_mysql`.
 
 ###Demo
-[Demo here (static)](http://gdriv.es/timesheet) - *note that login and save are disabled.*
+[Demo here (static)](https://www.googledrive.com/host/0B8xv-JJLBLuuU0FTZ2hyeEljYk0/) - *note that login and save are disabled.*

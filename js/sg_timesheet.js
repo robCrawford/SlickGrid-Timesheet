@@ -1,21 +1,13 @@
 (function($, Slick, window, document, undefined){
 
-	//JSON Stringify - http://www.JSON.org/js.html
-	if(!this.JSON){this.JSON={};}(function(){function f(n){return n<10?'0'+n:n;}if(typeof Date.prototype.toJSON!=='function'){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+'-'+f(this.getUTCMonth()+1)+'-'+f(this.getUTCDate())+'T'+f(this.getUTCHours())+':'+f(this.getUTCMinutes())+':'+f(this.getUTCSeconds())+'Z':null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};}var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={'\b':'\\b','\t':'\\t','\n':'\\n','\f':'\\f','\r':'\\r','"':'\\"','\\':'\\\\'},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?'"'+string.replace(escapable,function(a){var c=meta[a];return typeof c==='string'?c:'\\u'+('0000'+a.charCodeAt(0).toString(16)).slice(-4);})+'"':'"'+string+'"';}function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&&typeof value==='object'&&typeof value.toJSON==='function'){value=value.toJSON(key);}if(typeof rep==='function'){value=rep.call(holder,key,value);}switch(typeof value){case'string':return quote(value);case'number':return isFinite(value)?String(value):'null';case'boolean':case'null':return String(value);case'object':if(!value){return'null';}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)==='[object Array]'){length=value.length;for(i=0;i<length;i+=1){partial[i]=str(i,value)||'null';}
-	v=partial.length===0?'[]':gap?'[\n'+gap+partial.join(',\n'+gap)+'\n'+mind+']':'['+partial.join(',')+']';gap=mind;return v;}if(rep&&typeof rep==='object'){length=rep.length;for(i=0;i<length;i+=1){k=rep[i];if(typeof k==='string'){v=str(k,value);if(v){partial.push(quote(k)+(gap?': ':':')+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?': ':':')+v);}}}}v=partial.length===0?'{}':gap?'{\n'+gap+partial.join(',\n'+gap)+'\n'+mind+'}':'{'+partial.join(',')+'}';gap=mind;return v;}}if(typeof JSON.stringify!=='function'){JSON.stringify=function(value,replacer,space){var i;gap='';indent='';if(typeof space==='number'){for(i=0;i<space;i+=1){indent+=' ';}}else if(typeof space==='string'){indent=space;}rep=replacer;if(replacer&&typeof replacer!=='function'&&(typeof replacer!=='object'||typeof replacer.length!=='number')){throw new Error('JSON.stringify');}return str('',{'':value});};}if(typeof JSON.parse!=='function'){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&&typeof value==='object'){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}}return reviver.call(holder,key,value);}cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return'\\u'+('0000'+a.charCodeAt(0).toString(16)).slice(-4);});}if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,'@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,']').replace(/(?:^|:|,)(?:\s*\[)+/g,''))){j=window['eval']('('+text+')');return typeof reviver==='function'?walk({'':j},''):j;}throw new SyntaxError('JSON.parse');};}}());
-
-	/*---------------------------------------------------------
-	   Preferences
-	  ---------------------------------------------------------*/
 	var prefs = {"numRowsIndex":0,"showDeletedRows":0,"autoEdit":isAdmin?0:1,"autoSave":1}, //Defaults
 		prefsCookieName = isAdmin?"sg_timesheetPrefs-admin":"sg_timesheetPrefs",
 		savedPrefs = getSavedPrefs(); //Prefs from cookie
 	if(savedPrefs)prefs = savedPrefs; //Overwrite if saved
 
-
-	/*---------------------------------------------------------
+	/*
 	   Create grid
-	  ---------------------------------------------------------*/
+	*/
 	var tempId = 1, //In DB ids start at 100 to allow temp ids
 		changedRows = {}, //Keep a record of which rows have changed
 		data = [], //Stores grid data
@@ -58,9 +50,9 @@
 		};
 	dataGrids.push(grid);
 
-	/*---------------------------------------------------------
+	/*
 	   DOM ready
-	  ---------------------------------------------------------*/
+	*/
 	$(function(){
 		//Initialise downloadify for CSV exporting
 		initDownloadify();
@@ -154,9 +146,9 @@
 		});
 	});
 
-	/*---------------------------------------------------------
+	/*
 	   Undo
-	  ---------------------------------------------------------*/
+	*/
 	var commandQueue = [];
 
 	function queueAndExecuteCommand(item,column,editCommand){
@@ -178,9 +170,9 @@
 		}
 	}
 
-	/*---------------------------------------------------------
+	/*
 	  Cell display/edit
-	  ---------------------------------------------------------*/
+	*/
 	//Date timestamp field
 	/* dd/mm/yyyy formatted date formatter + editor (from timestamp)
 	   !timestamp is in seconds, not milliseconds! (Unix timestamp) */
@@ -203,12 +195,11 @@
 	}
 
 	function timestampCellEditor(args){
-		var self = this,
-			$input,
+		var $input,
 			defaultValue,
 			calendarOpen = false;
 
-		self.init = function() {
+		this.init = function() {
 			$input = $("<INPUT type=text class='editor-text' />");
 			$input.appendTo(args.container);
 			$input.focus().select();
@@ -223,37 +214,37 @@
 			$input.width($input.width() - 18);
 		};
 		
-		self.destroy = function() {
+		this.destroy = function() {
 			$.datepicker.dpDiv.stop(true,true);
 			$input.datepicker("hide");
 			$input.datepicker("destroy");
 			$input.remove();
 		};
 
-		self.show = function() {
+		this.show = function() {
 			if (calendarOpen) {
 				$.datepicker.dpDiv.stop(true,true).show();
 			}
 		};
 
-		self.hide = function() {
+		this.hide = function() {
 			if (calendarOpen) {
 				$.datepicker.dpDiv.stop(true,true).hide();
 			}
 		};
 
-		self.position = function(position) {
+		this.position = function(position) {
 			if (!calendarOpen) return;
 			$.datepicker.dpDiv
 				.css("top", position.top + 30)
 				.css("left", position.left);
 		};
 
-		self.focus = function() {
+		this.focus = function() {
 			$input.focus();
 		};
 
-		self.loadValue = function(item) {
+		this.loadValue = function(item) {
 			defaultValue = item[args.column.field];
 			var thedate = $.datepicker.parseDate("@", defaultValue * 1000);
 			defaultValue = $.datepicker.formatDate( "dd/mm/yy", thedate);
@@ -262,27 +253,27 @@
 			$input.select();
 		};
 
-		self.serializeValue = function() {
+		this.serializeValue = function() {
 			var thedate = $.datepicker.parseDate("dd/mm/yy", $input.val());
 			return $.datepicker.formatDate("@", thedate) / 1000;
 		};
 
-		self.applyValue = function(item,state) {
+		this.applyValue = function(item,state) {
 			item[args.column.field] = state;
 		};
 
-		self.isValueChanged = function() {
+		this.isValueChanged = function() {
 			return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
 		};
 
-		self.validate = function() {
+		this.validate = function() {
 			return {
 				valid: true,
 				msg: null
 			};
 		};
 
-		self.init();
+		this.init();
 	}
 
 	//Time field format
@@ -319,9 +310,9 @@
 		return htmlStr;
 	}
 
-	/*---------------------------------------------------------
+	/*
 	   Utils
-	  ---------------------------------------------------------*/
+	*/
 	function getDataRow(rowDisplayIndex){
 	//Get row from data ob that corresponds to display index
 	//(When filtered the indexes will not match)
@@ -404,9 +395,9 @@
 		return readCookieJSON(prefsCookieName);
 	}
 
-	/*-----------------------------------------
+	/*
 	   Cookies
-	  -----------------------------------------*/
+	*/
 	function readCookieJSON(ckName){
 	//Returns JS object as saved in ckName cookie
 		var ckVal = readCookie(ckName);
@@ -446,9 +437,9 @@
 		writeCookie(name,"",-1);
 	}
 
-	/*---------------------------------------------------------
+	/*
 	   Grid operations
-	  ---------------------------------------------------------*/
+	*/
 	function addRow(){
 	//Handler for add row button
 		if(tempId>99){
@@ -609,13 +600,15 @@
 			},2000);
 
 			//Optional additional callback from arg
-			if(addCallback)addCallback.call();
+			if(typeof addCallback === "function"){
+				addCallback();
+			}
 		});
 	}
 
-	/*---------------------------------------------------------
+	/*
 	   Export to CSV
-	  ---------------------------------------------------------*/
+	*/
 	function initDownloadify(){
 		var dt = new Date(),dd = dt.getDate(),mm = dt.getMonth()+1,yyyy = dt.getFullYear(); //January is 0!
 		if(dd<10){dd='0'+dd};if(mm<10){mm='0'+mm};
@@ -684,9 +677,9 @@
 		return csv;
 	}
 
-	/*---------------------------------------------------------
+	/*
 	   Add UI methods to namespace
-	  ---------------------------------------------------------*/
+	*/
 	Slick.ui = {
 		updateTimeStart: updateTimeStart,
 		updateTimeEnd: updateTimeEnd,

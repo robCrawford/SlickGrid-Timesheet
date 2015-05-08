@@ -13,8 +13,11 @@ Timesheet application using SlickGrid ([andrewchilds fork](https://github.com/an
 
 ###Installation
 
-Run the mySQL queries found in `/_mysql` to create the `sg_timesheet` database.  
-Change the connection details found in `/config/settings.php`  
+Use `/_mysql/sg_timesheet.sql` to create the `sg_timesheet` database i.e.  
+`mysql -u username -p < ~/path/to/_mysql/sg_timesheet.sql`  
+(or paste the contents into the SQL tab of phpMyAdmin).  
+
+Rename `/config/settings.php.sample` to `/config/settings.php` and edit the connection details.  
 
 Browse to index.php and log in using the default credentials:  
 *username:* 'User' for individual timesheet view or 'Admin' for all entries  

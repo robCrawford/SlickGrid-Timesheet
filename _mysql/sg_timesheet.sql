@@ -1,7 +1,3 @@
-/*
-Run these mySQL queries to create the timesheet database.
-i.e. copy the entire file and paste into the SQL tab of phpMyAdmin
-*/
 CREATE DATABASE sg_timesheet;
 USE sg_timesheet;
 

@@ -72,7 +72,7 @@ var loggedInUser = '<?php echo $_SESSION["username"]; ?>',
 	</div>
 	<div class="clearFloats"></div>
 </div>
-<div id="gridWrapper" class="slickgrid"></div>
+<div id="gridWrapper" class="slickgrid" style="width: 100%; height: 500px;"></div>
 
 </body>
 </html>

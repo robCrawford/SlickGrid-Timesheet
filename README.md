@@ -11,7 +11,7 @@ Timesheet application using SlickGrid ([andrewchilds fork](https://github.com/an
 * Cookies for prefs and login  
 * User / admin level logins (admin view shows data from all users)  
 
-###Installation
+### Installation
 
 Use `/_mysql/sg_timesheet.sql` to create the `sg_timesheet` database i.e.  
 `mysql -u username -p < ~/path/to/_mysql/sg_timesheet.sql`  
@@ -26,5 +26,5 @@ Browse to index.php and log in using the default credentials:
 *To change these details you will currently have to do so manually, as stated above.*  
 *If unsure please follow the comments in* `/_mysql`.
 
-###Demo
+### Demo
 [Demo here (static)](http://robcrawford.github.io/demos/slickgrid-timesheet-static-demo/) - *note that login and save are disabled.*
